@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <style>
+        body {
+            background-color: beige;
+        }
+        h1 {
+            font-family: cursive;
+            text-align: center;
+            font-size: 50px;
+        }
+        h2 {
+            font-size: large;
+        }
+        .container {
+            text-align: center;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            font-weight: bolder;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            margin-top: 20px;
+            padding: 10px;  /* Adjust padding */
+            width: 80%;  /* Control width for better size */
+            max-width: 400px;  /* Max width for large screens */
+            text-align: left;
+            box-sizing: border-box;  /* Includes padding in width calculation */
+        }
+        input[type="submit"] {
+            background-color: antiquewhite;
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: large;
+            padding: 10px 20px;  /* Adjust padding for submit button */
+        }
+        input[type='submit']:hover {
+            background-color: darkgray;
+        }
+        .error {
+            color: red;
+            font-size: 15px;
+            display: none;
+        }    
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Registration</h1>
+        <form id="validationForm" action="/register" method="post">
+
+            Name&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="text" id="username" name="Name" placeholder="Name" required><br><br>
+            <span id="usernameError" class="error">Username must be 5-15 characters, letters, and numbers only.<br></span>
+
+            Email&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="email" name="email" placeholder="Email Address" required><br><br>
+
+            Password&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="password" id="password" name="password" placeholder="Password" required><br><br>
+            <span id="passwordError" class="error">
+                Password must be at least 8 characters long, include an uppercase letter, a lowercase letter, and a number.
+            <br></span>
+            
+            Re-Type Password&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="password" name="Re-type Password" placeholder="Re-type Password" required><br><br>
+
+            <br><input type="submit" value="Register">
+            <h2><a href="Login.html" class="login-link">Already have an account? Login here</a></h2>
+
+        </form>
+    </div>
+      
+    <script>
+        document.getElementById("validationForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+
+            const usernameError = document.getElementById("usernameError");
+            const passwordError = document.getElementById("passwordError");
+
+            let valid = true;
+
+            function showError(errorElement) {
+                errorElement.style.display = "inline";
+                setTimeout(() => {
+                    errorElement.style.display = "none"; 
+                }, 10000); // 10 seconds
+            }
+
+            const usernamePattern = /^[A-Za-z0-9]{5,15}$/;
+            if (!usernamePattern.test(username)) {
+                showError(usernameError); 
+                valid = false;
+            }
+
+            const passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+            if (!passwordPattern.test(password)) {
+                showError(passwordError); 
+                valid = false;
+            }
+
+            if (valid) {
+                window.location.href = "Login.html";
+            }
+        });
+    </script>
+
+</body>
+</html>

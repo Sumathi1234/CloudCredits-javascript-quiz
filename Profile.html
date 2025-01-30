@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7fc;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #2C3E50;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        h2 {
+            margin: 0;
+            font-size: 36px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            font-size: 18px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #2C3E50;
+            color: #fff;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .btn {
+            background-color: #2C3E50;
+            color: #fff;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .btn:hover {
+            background-color: #34495E;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h2>Your Profile</h2>
+</header>
+
+<div class="container">
+    <h3>Your Quiz Results</h3>
+    <table id="quiz-results-table">
+        <thead>
+            <tr>
+                <th>Topic</th>
+                <th>Score</th>
+                <th>Total Questions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td colspan="3">Loading...</td>
+            </tr>
+        </tbody>
+    </table>
+    <button class="btn" onclick="window.location.href='Home.html'">Take Another Quiz</button>
+</div>
+
+<script>
+    function displayProfileResults() {
+        // Retrieve quiz results from localStorage
+        let storedResults = localStorage.getItem('quizResults');
+        
+        // Check if storedResults exist and is valid
+        if (!storedResults) {
+            document.getElementById("quiz-results-table").getElementsByTagName("tbody")[0].innerHTML = "<tr><td colspan='3'>No quiz results found.</td></tr>";
+            return;
+        }
+    
+        try {
+            // Parse the stored results
+            storedResults = JSON.parse(storedResults);
+        } catch (error) {
+            // Handle potential errors when parsing JSON (in case the format is incorrect)
+            console.error("Error parsing quiz results:", error);
+            document.getElementById("quiz-results-table").getElementsByTagName("tbody")[0].innerHTML = "<tr><td colspan='3'>Error loading quiz results.</td></tr>";
+            return;
+        }
+    
+        const profileResultsContainer = document.getElementById("quiz-results-table").getElementsByTagName("tbody")[0];
+    
+        // Clear any previous results
+        profileResultsContainer.innerHTML = "";
+    
+        // If no results exist in the stored object, display a message
+        if (Object.keys(storedResults).length === 0) {
+            profileResultsContainer.innerHTML = "<tr><td colspan='3'>No quiz results available yet.</td></tr>";
+            return;
+        }
+    
+        // Loop through each topic in the stored results
+        Object.keys(storedResults).forEach(topic => {
+            const result = storedResults[topic];
+    
+            // Validate the structure of the result to avoid errors
+            if (result && result.correctAnswers !== undefined && result.totalQuestions !== undefined) {
+                // Create a new row and insert topic, score, and total questions
+                const newRow = profileResultsContainer.insertRow();
+                newRow.insertCell(0).textContent = topic; // Topic
+                newRow.insertCell(1).textContent = result.correctAnswers; // Score (correct answers)
+                newRow.insertCell(2).textContent = result.totalQuestions; // Total Questions
+            } else {
+                console.error(`Invalid result format for topic: ${topic}`);
+            }
+        });
+    }
+    
+    // Call the function when the page loads
+    window.onload = function() {
+        const quizResultsTable = document.getElementById("quiz-results-table");
+        if (quizResultsTable) {
+            displayProfileResults();
+        }
+    };
+        
+</script>
+
+</body>
+</html>

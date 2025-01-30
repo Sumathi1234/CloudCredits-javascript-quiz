@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+</head>
+<style>
+        body{
+            background-color:beige;
+        }
+        h1{
+            font-size: 50px;
+            text-align: center;
+        }
+        h2{
+            font-size: 30px;
+        }
+    .container {
+        display:flex;
+        justify-content:center;
+        align-items: center;
+        padding: 75px;
+        min-height: 100vh;
+    }
+
+    .column {
+        width: 45%;
+    }
+
+    .topic {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+        gap:20px;
+    }
+
+    .topic img {
+        width: 250px;
+        height: 200px;
+        border-radius: 30px;
+        margin-right: 50px;
+    }
+
+    .topic h2 {
+        font-size: 25px;
+        margin: 0;
+    }
+    .icon {
+        position: absolute; 
+        top: 10px; 
+        right: 10px;
+    }
+    .icon img {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+    }
+    a{
+        text-decoration: none;
+        color: black;
+        font-weight: bold;
+    }
+    a:hover{
+        text-decoration: none;
+        color: darkblue;
+    }
+    
+</style>
+</head>
+<body>
+        <h1>Topics</h1>
+        <br>
+        <div class = "icon">
+            <a href = "Profile.html">
+            <img src = "Profile icon.jpg">;
+        </a></div>
+        <div class="container">
+
+            <div class="column">
+                <div class="topic">
+                    <a href = "Plants.html">
+                    <img src="Plants.webp" alt="Plants">
+                    <h2>Plants</h2></a>
+                </div>
+                <div class="topic">
+                    <a href = "Animals.html">
+                    <img src="Animals.jpg" alt="Animals">
+                    <h2>Animals</h2>
+                </a></div>
+                <div class="topic">
+                    <a href = "Sports.html">
+                    <img src="Sports.webp" alt="Nature">
+                    <h2>Sports</h2>
+                </a></div>
+            </div>
+
+            <div class="column">
+                <div class="topic">
+                    <a href = "Arts&Culture.html">
+                    <img src="Arts & Culture.jpg" alt="Arts & Culture">
+                    <h2>Arts & Culture</h2>
+                </a></div>
+                <div class="topic">
+                    <a href = "Current Affairs.html">
+                    <img src="Current Affairs.webp" alt="Current Affairs">
+                    <h2>Current Affairs</h2>
+                </a></div>
+                <div class="topic">
+                    <a href = "Music.html">
+                    <img src="Music.jpg" alt="Music">
+                    <h2>Music</h2>
+                </a></div>
+            </div>
+        </div>
+
+</body>
+</html>
