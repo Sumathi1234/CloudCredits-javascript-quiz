@@ -129,7 +129,7 @@ function displayQuestion() {
     const currentQuestion = questions[currentQuestionIndex];
     const questionContainer = document.getElementById("question");
     const optionsContainer = document.getElementById("options");
-    optionsContainer.innerHTML = "";  // Clear previous options
+    optionsContainer.innerHTML = "";  
     questionContainer.textContent = currentQuestion.question;
 
     currentQuestion.options.forEach(option => {
