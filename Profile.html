@@ -102,55 +102,40 @@
 </div>
 
 <script>
-    function displayProfileResults() {
-        // Retrieve quiz results from localStorage
+    function displayProfileResults() 
         let storedResults = localStorage.getItem('quizResults');
-        
-        // Check if storedResults exist and is valid
         if (!storedResults) {
             document.getElementById("quiz-results-table").getElementsByTagName("tbody")[0].innerHTML = "<tr><td colspan='3'>No quiz results found.</td></tr>";
             return;
         }
-    
         try {
-            // Parse the stored results
             storedResults = JSON.parse(storedResults);
         } catch (error) {
-            // Handle potential errors when parsing JSON (in case the format is incorrect)
             console.error("Error parsing quiz results:", error);
             document.getElementById("quiz-results-table").getElementsByTagName("tbody")[0].innerHTML = "<tr><td colspan='3'>Error loading quiz results.</td></tr>";
             return;
         }
     
         const profileResultsContainer = document.getElementById("quiz-results-table").getElementsByTagName("tbody")[0];
-    
-        // Clear any previous results
         profileResultsContainer.innerHTML = "";
-    
-        // If no results exist in the stored object, display a message
         if (Object.keys(storedResults).length === 0) {
             profileResultsContainer.innerHTML = "<tr><td colspan='3'>No quiz results available yet.</td></tr>";
             return;
         }
-    
-        // Loop through each topic in the stored results
         Object.keys(storedResults).forEach(topic => {
             const result = storedResults[topic];
     
-            // Validate the structure of the result to avoid errors
             if (result && result.correctAnswers !== undefined && result.totalQuestions !== undefined) {
-                // Create a new row and insert topic, score, and total questions
                 const newRow = profileResultsContainer.insertRow();
-                newRow.insertCell(0).textContent = topic; // Topic
-                newRow.insertCell(1).textContent = result.correctAnswers; // Score (correct answers)
-                newRow.insertCell(2).textContent = result.totalQuestions; // Total Questions
+                newRow.insertCell(0).textContent = topic; 
+                newRow.insertCell(1).textContent = result.correctAnswers;
+                newRow.insertCell(2).textContent = result.totalQuestions;
             } else {
                 console.error(`Invalid result format for topic: ${topic}`);
             }
         });
     }
     
-    // Call the function when the page loads
     window.onload = function() {
         const quizResultsTable = document.getElementById("quiz-results-table");
         if (quizResultsTable) {
