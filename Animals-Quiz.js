@@ -107,9 +107,9 @@ let correctAnswers = 0;
 let wrongAnswers = 0;
 let skippedQuestions = 0;
 let userAnswers = [];
-let timer = 900; // 15 minutes in seconds
+let timer = 900;
 let timerInterval;
-const topicName = "Animals"; // Change this dynamically for different topics
+const topicName = "Animals";
 
 function startTimer() {
     timerInterval = setInterval(() => {
@@ -209,26 +209,21 @@ function showResults() {
     saveResults();
 }
 
-// Function to store results in localStorage and update scores if reattempted
 function saveResults() {
     let allResults = JSON.parse(localStorage.getItem('quizResults')) || {};
-
-    // Save only correctAnswers and totalQuestions for the topic
     allResults[topicName] = {
-        correctAnswers,  // Only save the score
-        totalQuestions: questions.length  // Save the total number of questions
+        correctAnswers, 
+        totalQuestions: questions.length 
     };
 
     localStorage.setItem('quizResults', JSON.stringify(allResults));
 }
 
-// Function to display quiz results on the profile page
-// Function to display only score and total questions in the profile page
 function displayProfileResults() {
     let storedResults = JSON.parse(localStorage.getItem('quizResults'));
     const profileResultsContainer = document.getElementById("quiz-results-table").getElementsByTagName("tbody")[0];
 
-    profileResultsContainer.innerHTML = ""; // Clear previous results
+    profileResultsContainer.innerHTML = ""; 
 
     if (!storedResults || Object.keys(storedResults).length === 0) {
         profileResultsContainer.innerHTML = "<tr><td colspan='3'>No quiz results found.</td></tr>";
@@ -239,28 +234,22 @@ function displayProfileResults() {
         const result = storedResults[topic];
 
         const newRow = profileResultsContainer.insertRow();
-        newRow.insertCell(0).textContent = topic;  // Display topic
-        newRow.insertCell(1).textContent = result.correctAnswers;  // Display only score
-        newRow.insertCell(2).textContent = result.totalQuestions;  // Display total questions
+        newRow.insertCell(0).textContent = topic;
+        newRow.insertCell(1).textContent = result.correctAnswers; 
+        newRow.insertCell(2).textContent = result.totalQuestions; 
     });
 }
-
-// Call the function when the profile page loads
 if (document.getElementById("profile-results")) {
     displayProfileResults();
 }
 
-
-// Event Listeners
 document.getElementById("next").addEventListener("click", () => nextQuestion());
 document.getElementById("submit").addEventListener("click", showResults);
 document.getElementById("skip").addEventListener("click", () => nextQuestion(true));
 
-// Start the quiz
 displayQuestion();
 startTimer();
 
-// If on the profile page, display results
 if (document.getElementById("profile-results")) {
     displayProfileResults();
 }
